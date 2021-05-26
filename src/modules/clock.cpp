@@ -52,10 +52,10 @@ auto waybar::modules::Clock::update() -> void {
     tzset();
     auto localtime = fmt::localtime(std::chrono::system_clock::to_time_t(now));
     text = fmt::format(format_, localtime);
-    label_.set_markup(text);
+    label_->set_markup(text);
   } else {
     text = fmt::format(format_, wtime);
-    label_.set_markup(text);
+    label_->set_markup(text);
   }
 
   if (tooltipEnabled()) {
@@ -63,9 +63,9 @@ auto waybar::modules::Clock::update() -> void {
       const auto calendar = calendar_text(wtime);
       auto       tooltip_format = config_["tooltip-format"].asString();
       auto       tooltip_text = fmt::format(tooltip_format, wtime, fmt::arg("calendar", calendar));
-      label_.set_tooltip_markup(tooltip_text);
+      label_->set_tooltip_markup(tooltip_text);
     } else {
-      label_.set_tooltip_markup(text);
+      label_->set_tooltip_markup(text);
     }
   }
   // Call parent update

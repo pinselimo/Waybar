@@ -59,9 +59,9 @@ auto Language::update() -> void {
   if (lang_.empty()) {
     event_box_.hide();
   } else {
-    label_.set_markup(fmt::format(format_, lang_));
+    label_->set_markup(fmt::format(format_, lang_));
     if (tooltipEnabled()) {
-      label_.set_tooltip_text(lang_);
+      label_->set_tooltip_text(lang_);
     }
     event_box_.show();
   }

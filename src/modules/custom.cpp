@@ -128,24 +128,24 @@ auto waybar::modules::Custom::update() -> void {
     if (str.empty()) {
       event_box_.hide();
     } else {
-      label_.set_markup(str);
+      label_->set_markup(str);
       if (tooltipEnabled()) {
         if (text_ == tooltip_) {
-          if (label_.get_tooltip_markup() != str) {
-            label_.set_tooltip_markup(str);
+          if (label_->get_tooltip_markup() != str) {
+            label_->set_tooltip_markup(str);
           }
         } else {
-          if (label_.get_tooltip_markup() != tooltip_) {
-            label_.set_tooltip_markup(tooltip_);
+          if (label_->get_tooltip_markup() != tooltip_) {
+            label_->set_tooltip_markup(tooltip_);
           }
         }
       }
-      auto classes = label_.get_style_context()->list_classes();
+      auto classes = label_->get_style_context()->list_classes();
       for (auto const& c : classes) {
-        label_.get_style_context()->remove_class(c);
+        label_->get_style_context()->remove_class(c);
       }
       for (auto const& c : class_) {
-        label_.get_style_context()->add_class(c);
+        label_->get_style_context()->add_class(c);
       }
       event_box_.show();
     }

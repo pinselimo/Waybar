@@ -57,10 +57,10 @@ auto Window::update() -> void {
     bar_.window.get_style_context()->remove_class("solo");
     bar_.window.get_style_context()->remove_class("empty");
   }
-  label_.set_markup(fmt::format(format_, fmt::arg("title", rewriteTitle(window_)),
+  label_->set_markup(fmt::format(format_, fmt::arg("title", rewriteTitle(window_)),
                                 fmt::arg("app_id", app_id_)));
   if (tooltipEnabled()) {
-    label_.set_tooltip_text(window_);
+    label_->set_tooltip_text(window_);
   }
   // Call parent update
   ALabel::update();

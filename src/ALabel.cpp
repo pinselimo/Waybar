@@ -14,37 +14,37 @@ ALabel::ALabel(const Json::Value& config, const std::string& name, const std::st
                     : std::chrono::seconds(
                           config_["interval"].isUInt() ? config_["interval"].asUInt() : interval)),
       default_format_(format_) {
-  label_.set_name(name);
+  label_->set_name(name);
   if (!id.empty()) {
-    label_.get_style_context()->add_class(id);
+    label_->get_style_context()->add_class(id);
   }
-  event_box_.add(label_);
+  event_box_.add(*label_);
   if (config_["max-length"].isUInt()) {
-    label_.set_max_width_chars(config_["max-length"].asInt());
-    label_.set_ellipsize(Pango::EllipsizeMode::ELLIPSIZE_END);
-    label_.set_single_line_mode(true);
-  } else if (ellipsize && label_.get_max_width_chars() == -1) {
-    label_.set_ellipsize(Pango::EllipsizeMode::ELLIPSIZE_END);
-    label_.set_single_line_mode(true);
+    label_->set_max_width_chars(config_["max-length"].asInt());
+    label_->set_ellipsize(Pango::EllipsizeMode::ELLIPSIZE_END);
+    label_->set_single_line_mode(true);
+  } else if (ellipsize && label_->get_max_width_chars() == -1) {
+    label_->set_ellipsize(Pango::EllipsizeMode::ELLIPSIZE_END);
+    label_->set_single_line_mode(true);
   }
 
   if (config_["min-length"].isUInt()) {
-    label_.set_width_chars(config_["min-length"].asUInt());
+    label_->set_width_chars(config_["min-length"].asUInt());
   }
 
   uint rotate = 0;
 
   if (config_["rotate"].isUInt()) {
     rotate = config["rotate"].asUInt();
-    label_.set_angle(rotate);
+    label_->set_angle(rotate);
   }
 
   if (config_["align"].isDouble()) {
     auto align = config_["align"].asFloat();
     if (rotate == 90 || rotate == 270) {
-      label_.set_yalign(align);
+      label_->set_yalign(align);
     } else {
-      label_.set_xalign(align);
+      label_->set_xalign(align);
     }
 
   }
@@ -131,10 +131,10 @@ std::string ALabel::getState(uint8_t value, bool lesser) {
   std::string valid_state;
   for (auto const& state : states) {
     if ((lesser ? value <= state.second : value >= state.second) && valid_state.empty()) {
-      label_.get_style_context()->add_class(state.first);
+      label_->get_style_context()->add_class(state.first);
       valid_state = state.first;
     } else {
-      label_.get_style_context()->remove_class(state.first);
+      label_->get_style_context()->remove_class(state.first);
     }
   }
   return valid_state;

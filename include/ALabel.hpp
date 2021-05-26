@@ -17,7 +17,7 @@ class ALabel : public AModule {
   virtual std::string getIcon(uint16_t, std::vector<std::string> &alts, uint16_t max = 0);
 
  protected:
-  Gtk::Label                 label_;
+  Gtk::Label                 *label_ = new Gtk::Label();
   std::string                format_;
   const std::chrono::seconds interval_;
   bool                       alt_ = false;

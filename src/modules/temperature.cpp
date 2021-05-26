@@ -30,12 +30,12 @@ auto waybar::modules::Temperature::update() -> void {
   auto format = format_;
   if (critical) {
     format = config_["format-critical"].isString() ? config_["format-critical"].asString() : format;
-    label_.get_style_context()->add_class("critical");
+    label_->get_style_context()->add_class("critical");
   } else {
-    label_.get_style_context()->remove_class("critical");
+    label_->get_style_context()->remove_class("critical");
   }
   auto max_temp = config_["critical-threshold"].isInt() ? config_["critical-threshold"].asInt() : 0;
-  label_.set_markup(fmt::format(format,
+  label_->set_markup(fmt::format(format,
                                 fmt::arg("temperatureC", temperature_c),
                                 fmt::arg("temperatureF", temperature_f),
                                 fmt::arg("temperatureK", temperature_k),
@@ -45,7 +45,7 @@ auto waybar::modules::Temperature::update() -> void {
     if (config_["tooltip-format"].isString()) {
       tooltip_format = config_["tooltip-format"].asString();
     }
-    label_.set_tooltip_text(fmt::format(tooltip_format,
+    label_->set_tooltip_text(fmt::format(tooltip_format,
                                 fmt::arg("temperatureC", temperature_c),
                                 fmt::arg("temperatureF", temperature_f),
                                 fmt::arg("temperatureK", temperature_k)));

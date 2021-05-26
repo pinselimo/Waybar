@@ -12,7 +12,7 @@ AModule::AModule(const Json::Value& config, const std::string& name, const std::
       config_["on-click-backward"].isString() || config_["on-click-forward"].isString() ||
       config_["on-click-right"].isString() || enable_click) {
     event_box_.add_events(Gdk::BUTTON_PRESS_MASK);
-    event_box_.signal_button_press_event().connect(sigc::mem_fun(*this, &AModule::handleToggle));
+    event_box_.signal_button_release_event().connect(sigc::mem_fun(*this, &AModule::handleToggle));
   }
   if (config_["on-scroll-up"].isString() || config_["on-scroll-down"].isString() || enable_scroll) {
     event_box_.add_events(Gdk::SCROLL_MASK | Gdk::SMOOTH_SCROLL_MASK);

@@ -14,11 +14,12 @@ ALabel::ALabel(const Json::Value& config, const std::string& name, const std::st
                     : std::chrono::seconds(
                           config_["interval"].isUInt() ? config_["interval"].asUInt() : interval)),
       default_format_(format_) {
-  label_->set_name(name);
+  button_.set_name(name);
+  button_.set_relief(Gtk::RELIEF_NONE);
   if (!id.empty()) {
-    label_->get_style_context()->add_class(id);
+    button_.get_style_context()->add_class(id);
   }
-  event_box_.add(*label_);
+  event_box_.add(button_);
   if (config_["max-length"].isUInt()) {
     label_->set_max_width_chars(config_["max-length"].asInt());
     label_->set_ellipsize(Pango::EllipsizeMode::ELLIPSIZE_END);

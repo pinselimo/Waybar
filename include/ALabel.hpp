@@ -2,6 +2,7 @@
 
 #include <glibmm/markup.h>
 #include <gtkmm/label.h>
+#include <gtkmm/button.h>
 #include <json/json.h>
 #include "AModule.hpp"
 
@@ -17,7 +18,8 @@ class ALabel : public AModule {
   virtual std::string getIcon(uint16_t, std::vector<std::string> &alts, uint16_t max = 0);
 
  protected:
-  Gtk::Label                 *label_ = new Gtk::Label();
+  Gtk::Button                button_ = Gtk::Button(name_);
+  Gtk::Label                 *label_ = (Gtk::Label*)button_.get_child();
   std::string                format_;
   const std::chrono::seconds interval_;
   bool                       alt_ = false;
